@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
+@WebServlet(name = "RemoveVoteServlet", urlPatterns = {"/RemoveVoteServlet"})
 public class RemoveVoteServlet extends HttpServlet {
     
     /**
@@ -37,8 +39,8 @@ public class RemoveVoteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
          // Retrieve post ID and user ID from request parameters
-        int postId = Integer.parseInt(request.getParameter("post_id"));
-        int userId = Integer.parseInt(request.getParameter("user_id"));
+        int postId = Integer.parseInt(request.getParameter("txtViewPostID"));
+        int userId = Integer.parseInt(request.getParameter("txtUserID"));
         String url = ERROR_PAGE;
 
 
@@ -47,7 +49,7 @@ public class RemoveVoteServlet extends HttpServlet {
             boolean result = DAO.removeVote(postId, userId);
             if (result){
                 //URL rewriting
-                url = VIEW_POST +"?post_id="+postId;
+                 url = "MainController?btAction=View_Post&txtViewPostId="+postId;
             }
             
         } catch (SQLException e){
