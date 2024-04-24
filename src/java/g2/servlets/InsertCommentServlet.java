@@ -5,14 +5,12 @@
  */
 package g2.servlets;
 
+import g2.commentTbl.commentDAO;
 import g2.postTbl.postDAO;
-import g2.voteTbl.voteDAO;
 import g2.voteTbl.VoteSubmitError;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +22,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author admin
  */
-@WebServlet(name = "SubmitVoteServlet", urlPatterns = {"/SubmitVoteServlet"})
-public class SubmitVoteServlet extends HttpServlet {
-    private final voteDAO DAO = new voteDAO();
+@WebServlet(name = "InsertCommentServlet", urlPatterns = {"/InsertCommentServlet"})
+public class InsertCommentServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,7 +36,6 @@ public class SubmitVoteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Check if a user session exists
         HttpSession session = request.getSession(false); // Get existing session, don't create a new one
         if (session == null || session.getAttribute("ACC") == null) { 
             // No session or user ID, redirect to login page
@@ -53,28 +50,14 @@ public class SubmitVoteServlet extends HttpServlet {
         
         int postId = Integer.parseInt(request.getParameter("txtViewPostId"));
         int userId = Integer.parseInt(request.getParameter("txtUserId"));
-        String vote = request.getParameter("btAction");
-        int voteType = 0;
-        
-        if (vote.equals("Upvote")){
-            voteType = 1;
-        } else voteType = -1;
-        
+        String comment = request.getParameter("comment");
+       
         String url = "MainController?btAction=View_Post&txtViewPostId="+postId;
 
         try {
-            if (!DAO.hasVoted(postId, userId)) {
-                // User has not voted, proceed with vote submission
-                DAO.sumbitVote(userId, postId, voteType);
-                //prompt post to calculate own votesum
-                postDAO dao = new postDAO();               
-                
-            } else {
-                // User has already voted, handle accordingly (e.g., display error message)
-                VoteSubmitError err = new VoteSubmitError("You already voted. Click here to remove vote first.");   
-                request.setAttribute("VOTE_ERROR", err);
-                //=> display as a clickable link on the post UI next to the vote button, when clicked, it triggers removeVoteServlet
-            }
+               commentDAO dao = new commentDAO();
+               dao.insertComment(userId, postId, comment);
+            
         } catch (SQLException e){
             log("Error at VoteServlet _ SQL : " + e.toString());
         } catch (ClassNotFoundException e){
