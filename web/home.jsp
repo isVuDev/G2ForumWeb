@@ -128,84 +128,13 @@
                     }
                 %>
             </div>
-            <div id="centerBox">
-                <%
-                    //<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
-                    //<c:if test="${not empty listLec}">
-                    //<c:forEach items="${requestScope.listLec}" var="lec">
-                    //${lec.course.courseName}
-                    if (request.getParameter("txtSearchUser") != null) {
-                        List<userDTO> list_user = (List<userDTO>) request.getAttribute("USERS");
-                        if (list_user != null && list_user.size() > 0) {
-                %>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>isMod</th>
-                            <th>isBanned</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (userDTO u : list_user) {
-                        %>
-                        <tr>
-                            <td><%= u.getUser_id()%></td>
-                            <td><a href=<%="MainController?btAction=Search_User&txtViewUserId=" + u.getUser_id()%> ><%= u.getUsername()%></a></td>
-                            <td><%= u.isIsMod()%></td>
-                            <td><%= u.isIsBanned()%></td>
-                        </tr>
-                        <%
-                            };
-                        %>
-                    </tbody>
-
-                </table>
-                <%
-                    }
-                } else {
-                    userDAO u_dao = new userDAO();
-                    List<userDTO> list_user = (List<userDTO>) u_dao.getUsers("");
-                    if (list_user != null && list_user.size() > 0) {
-                %>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>isMod</th>
-                            <th>isBanned</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%
-                            for (userDTO u : list_user) {
-                        %>
-                        <tr>
-                            <td><%= u.getUser_id()%></td>
-                            <td><%= u.getUsername()%></td>
-                            <td><%= u.isIsMod()%></td>
-                            <td><%= u.isIsBanned()%></td>
-                        </tr>
-                        <%
-                            };
-                        %>
-                    </tbody>
-                </table>
-                <%
-                        }
-                    }
-                %>
-            </div>
             <div id="topicTable">
                 <%
                     //<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
                     //<c:if test="${not empty listLec}">
                     //<c:forEach items="${requestScope.listLec}" var="lec">
                     //${lec.course.courseName}
-                    if (request.getParameter("txtSearchTopic") != null) {
+                    if (request.getAttribute("TOPICS") != null) {
                         List<topicDTO> list_topic = (List<topicDTO>) request.getAttribute("TOPICS");
                         if (list_topic != null && list_topic.size() > 0) {
                 %>
@@ -253,6 +182,78 @@
                         <tr>
                             <td><%= t.getTitle()%></td>
                             <td><%= t.getContent()%></td>
+                        </tr>
+                        <%
+                            };
+                        %>
+                    </tbody>
+                </table>
+                <%
+                        }
+                    }
+                %>
+            </div>
+            <div id="topicTable">
+                <%
+                    //<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+                    //<c:if test="${not empty listLec}">
+                    //<c:forEach items="${requestScope.listLec}" var="lec">
+                    //${lec.course.courseName}
+                    if (request.getAttribute("ACCS")!= null) {
+                        List<userDTO> list_user = (List<userDTO>) request.getAttribute("ACCS");
+                        if (list_user != null && list_user.size() > 0) {
+                %>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>isMod</th>
+                            <th>isBanned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (userDTO u : list_user) {
+                        %>
+                        <tr>
+                            <td><%= u.getUser_id()%></td>
+                            <td><a href=<%="MainController?btAction=Search_User&txtViewUserId=" + u.getUser_id()%> ><%= u.getUsername()%></a></td>
+                            <td><%= u.isIsMod()%></td>
+                            <td><%= u.isIsBanned()%></td>
+                        </tr>
+                        <%
+                            };
+                        %>
+                    </tbody>
+
+                </table>
+                <%
+                    }
+                }
+                else {
+                    userDAO u_dao = new userDAO();
+                    List<userDTO> list_user = (List<userDTO>) u_dao.getUsers("");
+                    if (list_user != null && list_user.size() > 0) {
+                %>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>isMod</th>
+                            <th>isBanned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (userDTO u : list_user) {
+                        %>
+                        <tr>
+                            <td><%= u.getUser_id()%></td>
+                            <td><%= u.getUsername()%></td>
+                            <td><%= u.isIsMod()%></td>
+                            <td><%= u.isIsBanned()%></td>
                         </tr>
                         <%
                             };
