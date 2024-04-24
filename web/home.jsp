@@ -37,7 +37,7 @@
                 </ul>
                 <ul>
                     <div id="createPost">
-                        <li><a href="createPost.jsp">Create Post</a></li>
+                        <li><a href="MainController?btAction=Create_Post">Create Post</a></li>
                     </div>
                     <div class="search-container">
                         <form action="MainController" method="GET">
@@ -61,7 +61,7 @@
                     //<c:if test="${not empty listLec}">
                     //<c:forEach items="${requestScope.listLec}" var="lec">
                     //${lec.course.courseName}
-                    if (request.getAttribute("txtSearchPostTopic") != null) {
+                    if (request.getAttribute("POSTS") != null) {
                         List<postDTO> list_post = (List<postDTO>) request.getAttribute("POSTS");
                         if (list_post != null && list_post.size() > 0) {
                 %>

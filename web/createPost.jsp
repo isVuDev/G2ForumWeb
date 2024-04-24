@@ -13,13 +13,10 @@
     </head>
     <body>
         <form action="MainController" method="GET">
-            <h1>Posting on topic: </h1>
+            <h1>Posting on topic: 3</h1>
             Post title: <input type="text" name="txtPostTitle"/></br>
             Post content: <input type="text" name="txtPostContent"/></br>
-            <p><font color='red'>${requestScope.ERRORS.postLenError}</font></p>       
-            <p><font color='red'>${requestScope.ERRORS.postExisted}</font></p>
             <!--Image-->
-            <p><font color='red' >${requestScope.ERRORS.imageError}</font></p>
             </br>
             <input type="submit" name="btAction" value="Create_Post"/>
             <input type="reset"/>
