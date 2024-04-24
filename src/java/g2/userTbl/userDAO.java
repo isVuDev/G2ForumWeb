@@ -334,4 +334,43 @@ public class userDAO {
         }
         return mods;
     }
+
+    public userDTO getUserByID(int user_id)
+            throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        userDTO user = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String query = "SELECT * FROM userTbl WHERE user_id like ?";
+                stm = con.prepareStatement(query);
+                stm.setInt(1,user_id);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    int userID = rs.getInt("user_id");
+                    String username = rs.getString("username");                 
+                    String email = rs.getString("email");
+                    Date birthdate = rs.getDate("birthdate");
+                    boolean isMod = rs.getBoolean("isMod");
+                    boolean isDelete = rs.getBoolean("isDelete");
+                    boolean isBanned = rs.getBoolean("isBanned");
+                    byte[] avatar = rs.getBytes("avatar");
+                    user = new userDTO(userID, username, null, email, birthdate, isMod, isDelete, isBanned, avatar);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return user;
+    }
 }
