@@ -52,9 +52,6 @@
                 <form action="MainController" method="post">
                     User Name<input type="text" name="txtUserName"/><br/>
                     Password<input type="password" name="txtPassword"/><br/>
-                    <c:if test="${not empty requestScope.REDIRECT}">
-                        <input type="hidden" name="txtRedirect" value ="${requestScope.REDIRECT}"/>
-                    </c:if>
                     <input type="submit" name="btAction" value="Login"/>
                     <input type="reset" value="Reset"/>
                 </form>

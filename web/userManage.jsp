@@ -53,60 +53,71 @@
         </header>
         <div id="body">
             <div id="centerBox">
-                
-            </div>
-            <h1>User Management</h1>
-            <form action="MainController" method="get">
-                <input type="text" name="txtSearchUser" placeholder="Search user" value="${param.txtSearchUser}"/>
-                <input type="submit" name="btAction" value="Search User"/>
-            </form>
-            <c:set var="accs" value="${requestScope.ACCS}"/>
-            <c:if test="${not empty accs}">
+                <h1>Mod List</h1>
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>No.</th><th>User ID</th><th>User Name</th><th>Password</th><th>Email</th>
-                            <th>Birthdate</th><th>isMod</th><th>isBanned</th><th>Avatar</th><th>Delete</th><th>Update</th>
+                            <th>No.</th><th>User ID</th><th>User Name</th><th>Email</th>
+                            <th>Birthdate</th>
                         </tr>
-                    </thead> 
                     <tbody>
-                        <c:forEach var="a" items="${accs}" varStatus="cnt">
-
+                        <c:set var="mods" value="${requestScope.MODS}"/>
+                        <c:forEach var="m" items="${mods}" varStatus="cnt">
                             <tr>
-                        <form action="MainController" method="post">
-                            <td>${cnt.index+1}</td>
-                            <td>${a.getUser_id()}</td>
-                            <td>
-                                ${a.getUsername()}
-                                <input type="hidden" name="txtUserName" value="${a.getUsername()}"/>
-                            </td>
-                            <td><input type="text" name="txtPassword" value="${a.getPassword()}"/></td>
-                            <td><input type="text" name="txtEmail" value="${a.getEmail()}"/></td>
-                            <td>
-                                ${a.getBirthDate()}
-                                <input type="hidden" name="txtBirthDate" value="${a.getBirthDate()}"/>
-                            </td>
-                            <td><input type="checkbox" name="chkMod" ${a.isIsMod() ? "checked" : ""}/></td>
-                            <td><input type="checkbox" name="chkBanned" ${a.isIsBanned() ? "checked" : ""}/></td>
-                            <td>
-                                <img src="data:image/jpg;base64,${a.getAvatar()}" width="100" height="100" /><br/>
-                                <input type="hidden" name="imgAvatar" value="${a.getAvatar()}">
-                            </td>
-                            <td><a href="MainController?btAction=Delete&pk=${a.getUsername()}&lastSearchUser=${requestScope.txtSearchUser}">Delete</a></td>
-                            <input type="hidden" name="LastSearchUser" value="${requestScope.txtSearchUser}"/>
-                            <td><input type="submit" name="btAction" value="Update"/></td>
-                        </form>
-                        </tr>
-                    </c:forEach>
+                                <td>${cnt.index+1}</td>
+                                <td>${m.getUser_id()}</td>
+                                <td>${m.getUsername()}</td>
+                                <td>${m.getEmail()}</td>
+                                <td>${m.getBirthDate()}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
+                    </thead> 
                 </table>
-            </c:if>
-        </div>
-        <footer>
-            <div id="footer">
-                <h6>G2 Forum Web</h6>
-                <h6><a href="home.jsp">Github</a></h6>
+                <h1>User Management</h1>
+                <form action="MainController" method="get">
+                    <input type="text" name="txtSearchUser" placeholder="Search user" value="${param.txtSearchUser}"/>
+                    <input type="submit" name="btAction" value="Search User"/>
+                </form>
+                <c:set var="accs" value="${requestScope.ACCS}"/>
+                <c:if test="${not empty accs}">
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>No.</th><th>User ID</th><th>User Name</th><th>Email</th>
+                                <th>Birthdate</th><th>isBanned</th><th>Delete</th><th>Modify</th>
+                            </tr>
+                        </thead> 
+                        <tbody>
+                            <c:forEach var="a" items="${accs}" varStatus="cnt">
+                                <c:if test="${!a.isIsMod()}">
+                                    <tr>
+                                <form action="MainController" method="post">
+                                    <td>${cnt.index+1}</td>
+                                    <td>${a.getUser_id()}</td>
+                                    <td>
+                                        ${a.getUsername()}
+                                        <input type="hidden" name="txtUserName" value="${a.getUsername()}"/>
+                                    </td>
+                                    <td>${a.getEmail()}</td>
+                                    <td>${a.getBirthDate()}</td>
+                                    <td><input type="checkbox" name="chkBanned" ${a.isIsBanned() ? "checked" : ""}/></td>
+                                    <td><a href="MainController?btAction=Delete&pk=${a.getUsername()}&lastSearchUser=${param.txtSearchUser}">Delete</a></td>
+                                    <input type="hidden" name="LastSearchUser" value="${param.txtSearchUser}"/>
+                                    <td><input type="submit" name="btAction" value="Ban"/></td>
+                                </form>
+                                </tr> 
+                            </c:if>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
             </div>
-        </footer>
+            <footer>
+                <div id="footer">
+                    <h6>G2 Forum Web</h6>
+                    <h6><a href="home.jsp">Github</a></h6>
+                </div>
+            </footer>
     </body>
 </html> 

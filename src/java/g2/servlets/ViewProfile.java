@@ -5,6 +5,8 @@
  */
 package g2.servlets;
 
+import g2.postTbl.postDAO;
+import g2.postTbl.postDTO;
 import g2.userTbl.userDAO;
 import g2.userTbl.userDTO;
 import java.io.ByteArrayOutputStream;
@@ -16,6 +18,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,9 +33,9 @@ import javax.servlet.http.Part;
  */
 public class ViewProfile extends HttpServlet {
 
-    private String UPDATE_PROFILE_PAGE = "updateProfile.jsp";
     private String LOGIN_PAGE = "login.jsp";
-    private String LOGOUT_SERVLET = "LogoutServlet";
+    private String PROFILE_PAGE = "profile.jsp";
+    private String OTHER_PAGE = "otherUser.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,37 +45,24 @@ public class ViewProfile extends HttpServlet {
         try {
             HttpSession session = request.getSession(false);
             if (session != null) {
-                userDTO user = (userDTO) session.getAttribute("ACC");
-                String oldPassword = user.getPassword();
-                String userName = request.getParameter("txtUserName");
-                String password = request.getParameter("txtPassword");
-                String email = request.getParameter("txtEmail");
-                String date_String = request.getParameter("txtBirthDate");
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date utilDate = dateFormat.parse(date_String);
-                java.sql.Date birthdate = new java.sql.Date(utilDate.getTime());
-                byte[] avatar = null;
-                Part filePart = request.getPart("imgAvatar");
-                if (filePart != null && filePart.getSize() > 0) {
-                    avatar = extractImage(filePart);
+                String oUsername = request.getParameter("txtUserName");
+                userDTO otherAcc = null;
+                postDAO pDao = new postDAO();
+                if (oUsername != null && oUsername.length() > 0) {
+                    userDAO uDao = new userDAO();
+                    otherAcc = uDao.getUser(oUsername);
+                    List<postDTO> otherPosts = pDao.getPostData(otherAcc.getUser_id());
+                    request.setAttribute("POSTS", otherPosts);
+                    request.setAttribute("OTHER_ACC", otherAcc);
+                    url = OTHER_PAGE;
                 } else {
-                    String base64Image = request.getParameter("oldAvatar");
-                    if (base64Image != null) {
-                        avatar = Base64.getDecoder().decode(base64Image);
-                    }
-                }
-                userDAO uDao = new userDAO();
-                boolean isUpdate = uDao.updateUser(userName, password, email, birthdate, avatar);
-                if (!oldPassword.equals(password)) {
-                    request.setAttribute("MSG", "Password has changed, please login again.");
-                    url = LOGOUT_SERVLET;
-                } else {
-                    userDTO accUpdate = uDao.getUser(userName);
-                    session.setAttribute("ACC", accUpdate);
-                    url = UPDATE_PROFILE_PAGE;
+                    userDTO acc = (userDTO) session.getAttribute("ACC");
+                    List<postDTO> ownPosts = pDao.getPostData(acc.getUser_id());
+                    request.setAttribute("POSTS", ownPosts);
+                    url = PROFILE_PAGE;
                 }
             }
-        } catch (SQLException | ClassNotFoundException | ParseException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
