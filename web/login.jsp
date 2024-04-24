@@ -49,7 +49,6 @@
         </header>
         <div id="body">
             <div id="centerBox">
-
                 <form action="MainController" method="post">
                     User Name<input type="text" name="txtUserName"/><br/>
                     Password<input type="password" name="txtPassword"/><br/>

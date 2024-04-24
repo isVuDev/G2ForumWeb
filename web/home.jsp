@@ -4,6 +4,8 @@
     Author     : APC
 --%>
 
+<%@page import="g2.userTbl.userDTO"%>
+<%@page import="g2.userTbl.userDAO"%>
 <%@page import="g2.postTbl.postDAO"%>
 <%@page import="g2.postTbl.postDTO"%>
 <%@page import="g2.topicTbl.topicDAO"%>
@@ -26,11 +28,14 @@
                 <h1>G2 Forum Web</h1>
                 <p></p>
             </div>
+
+            <c:set var="acc" value="${sessionScope.ACC}"/>
+
             <nav id="menu">
                 <ul>
                     <li><a href="home.jsp">Home</a></li>
                     <li><a href=""></a></li>
-                    <li><a href=""></a></li>
+                    <li><a href=""></a>${acc.getUsername()}</li>
                     <li><a href="signup.jsp">Sign-up</a></li>
                     <li><a href="login.jsp">Login</a>
                     </li>
@@ -123,6 +128,77 @@
                     }
                 %>
             </div>
+            <div id="centerBox">
+                <%
+                    //<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
+                    //<c:if test="${not empty listLec}">
+                    //<c:forEach items="${requestScope.listLec}" var="lec">
+                    //${lec.course.courseName}
+                    if (request.getParameter("txtSearchUser") != null) {
+                        List<userDTO> list_user = (List<userDTO>) request.getAttribute("USERS");
+                        if (list_user != null && list_user.size() > 0) {
+                %>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>isMod</th>
+                            <th>isBanned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (userDTO u : list_user) {
+                        %>
+                        <tr>
+                            <td><%= u.getUser_id()%></td>
+                            <td><a href=<%="MainController?btAction=Search_User&txtViewUserId=" + u.getUser_id()%> ><%= u.getUsername()%></a></td>
+                            <td><%= u.isIsMod()%></td>
+                            <td><%= u.isIsBanned()%></td>
+                        </tr>
+                        <%
+                            };
+                        %>
+                    </tbody>
+
+                </table>
+                <%
+                    }
+                } else {
+                    userDAO u_dao = new userDAO();
+                    List<userDTO> list_user = (List<userDTO>) u_dao.getUsers("");
+                    if (list_user != null && list_user.size() > 0) {
+                %>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>isMod</th>
+                            <th>isBanned</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (userDTO u : list_user) {
+                        %>
+                        <tr>
+                            <td><%= u.getUser_id()%></td>
+                            <td><%= u.getUsername()%></td>
+                            <td><%= u.isIsMod()%></td>
+                            <td><%= u.isIsBanned()%></td>
+                        </tr>
+                        <%
+                            };
+                        %>
+                    </tbody>
+                </table>
+                <%
+                        }
+                    }
+                %>
+            </div>
             <div id="topicTable">
                 <%
                     //<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" 
@@ -166,7 +242,7 @@
                 <table border="1">
                     <thead>
                         <tr>
-                            <th>Title</th>
+                            <th>Topic</th>
                             <th>Content</th>
                         </tr>
                     </thead>
