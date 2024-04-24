@@ -32,9 +32,6 @@
                     </li>
                 </ul>
                 <ul>
-                    <div id="createPost">
-                        <li><a href="MainController?btAction=Create_Post">Create Post</a></li>
-                    </div>
                     <div class="search-container">
                         <form action="MainController" method="GET">
                             <input type="text" placeholder="user"
@@ -52,7 +49,6 @@
         </header>
         <div id="body">
             <div id="centerBox">
-
                 <form action="MainController" method="post">
                     User Name<input type="text" name="txtUserName"/><br/>
                     Password<input type="password" name="txtPassword"/><br/>
