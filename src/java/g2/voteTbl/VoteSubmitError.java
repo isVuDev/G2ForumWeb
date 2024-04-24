@@ -10,19 +10,20 @@ package g2.voteTbl;
  * @author admin
  */
 public class VoteSubmitError {
-    private String VoteHasBeenMadeError;
+    private String voteHasBeenMade;
+
+    public String getVoteHasBeenMade() {
+        return voteHasBeenMade;
+    }
+
+    public void setVoteHasBeenMade(String voteHasBeenMade) {
+        this.voteHasBeenMade = voteHasBeenMade;
+    }
+
+    public VoteSubmitError(String voteHasBeenMade) {
+        this.voteHasBeenMade = voteHasBeenMade;
+    }
     
-   
-    public VoteSubmitError() {
-    }
-
-    public String getVoteHasBeenMadeError() {
-        return VoteHasBeenMadeError;
-    }
-
-    public void setVoteHasBeenMadeError(String VoteHasBeenMadeError) {
-        this.VoteHasBeenMadeError = VoteHasBeenMadeError;
-    }
     
       
 }
