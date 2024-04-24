@@ -27,8 +27,8 @@
                     <li><a href="home.jsp">Home</a></li>
                     <li><a href=""></a></li>
                     <li><a href=""></a></li>
-                    <li><a href="signup.jsp">Sign-up</a></li>
-                    <li><a href="login.jsp">Login</a>
+                    <li></li>
+                    <li>
                     </li>
                 </ul>
                 <ul>

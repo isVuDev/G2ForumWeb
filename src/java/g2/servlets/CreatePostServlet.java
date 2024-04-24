@@ -7,6 +7,7 @@ package g2.servlets;
 
 import g2.postTbl.postDAO;
 import g2.postTbl.postDTO;
+import g2.userTbl.userDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -43,24 +44,33 @@ public class CreatePostServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String url = CREATE_POST_PAGE;
         try {
-            //post id, user_id, topic_id, title, content, isHidden, isDelete, image;
-            //int post_id
-            //int author_id = Integer.parseInt(request.getParameter("txtAuthor"));
-            int author_id = 1;
-            //int topic_id = Integer.parseInt(request.getParameter("txtTopic_id"));
-            int topic_id = 3;
-            String post_title = request.getParameter("txtPostTitle");
-            String post_content = request.getParameter("txtPostContent");
-            //image null;
-            //LoginErrors errors = new LoginErrors();
-            //constructor =-- post_id
-            //postDTO insert_post = new postDTO(author_id, topic_id, post_title, post_content, false, false, 'null';
-            //String image = ;
-            postDAO p_dao = new postDAO();
-            postDTO insert_post = p_dao.insertPost(author_id, topic_id, post_title, post_content, null);
-            if(insert_post!=null) {
-                request.setAttribute("INSERT_POST", insert_post);
-                url = HOME_PAGE;
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                //post id, user_id, topic_id, title, content, isHidden, isDelete, image;
+                //int post_id
+                //int author_id = Integer.parseInt(request.getParameter("txtAuthor"));
+                int author_id = 1;
+                //int topic_id = Integer.parseInt(request.getParameter("txtTopic_id"));
+                int topic_id = 3;
+                String post_title = request.getParameter("txtPostTitle");
+                String post_content = request.getParameter("txtPostContent");
+                //image null;
+                //LoginErrors errors = new LoginErrors();
+                //constructor =-- post_id
+                //postDTO insert_post = new postDTO(author_id, topic_id, post_title, post_content, false, false, 'null';
+                //String image = ;
+                userDTO acc = (userDTO) session.getAttribute("ACC");
+                postDAO p_dao = new postDAO();
+                postDTO insert_post = p_dao.insertPost(acc.getUser_id(), topic_id, post_title, post_content, null);
+                if (insert_post != null) {
+                    request.setAttribute("INSERT_POST", insert_post);
+                    
+                    if (acc.isIsMod()) {
+                        url = "mod.jsp";
+                    } else {
+                        url = "user.jsp";
+                    }
+                }
             }
         } catch (SQLException | ClassNotFoundException ex) {
             ex.printStackTrace();

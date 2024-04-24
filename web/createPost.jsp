@@ -28,7 +28,7 @@
                     <li><a href=""></a></li>
                     <li><a href=""></a></li>
                     <li></li>
-                    <li>                    </li>
+                    <li></li>
                 </ul>
                 <ul>
                     <div id="createPost">
