@@ -43,7 +43,34 @@ public class commentDAO {
         }
         return false;
     }
-
+    
+    
+    
+    public boolean insertComment(int user_id, int post_id, String content) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtils.getConnection();
+            if (con != null) {
+                String query = "insert into commentTbl(user_id,post_id,content) values(?,?,?)";
+                stm = con.prepareStatement(query);
+                stm.setInt(1, user_id);
+                stm.setInt(2, post_id);
+                stm.setString(3, content);
+                int affectedRows = stm.executeUpdate();
+                return affectedRows == 1;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
+    
     public List<commentDTO> getCommentByPost(int view_post_id) throws SQLException, ClassNotFoundException, Exception {
         Connection con = null;
         PreparedStatement stm = null;
