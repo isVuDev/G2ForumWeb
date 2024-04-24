@@ -30,7 +30,7 @@ public class topicDAO {
             if (con != null) {
                 String query = "SELECT * FROM topicTbl WHERE title LIKE ?";
                 stm = con.prepareStatement(query);
-                stm.setString(1, searchTopicValue + "%");
+                stm.setString(1,"%"+ searchTopicValue + "%");
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int topic_id = rs.getInt("topic_id");
