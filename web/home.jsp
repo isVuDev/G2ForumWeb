@@ -61,7 +61,7 @@
                     //<c:if test="${not empty listLec}">
                     //<c:forEach items="${requestScope.listLec}" var="lec">
                     //${lec.course.courseName}
-                    if (request.getParameter("txtSearchPostTopic")!= null) {
+                    if (request.getAttribute("txtSearchPostTopic") != null) {
                         List<postDTO> list_post = (List<postDTO>) request.getAttribute("POSTS");
                         if (list_post != null && list_post.size() > 0) {
                 %>
@@ -71,6 +71,7 @@
                             <th>ID</th>
                             <th>Title</th>
                             <th>Content</th>
+                            <th>Topic ID</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,7 @@
                             <td><%= p.getPost_id()%></td>
                             <td><%= p.getTitle()%></td>
                             <td><%= p.getContent()%></td>
+                            <td><%= p.getTopic_id()%></td>
                         </tr>
                         <%
                             };
@@ -106,6 +108,7 @@
                         <%
                             for (postDTO p : list_post) {
                         %>
+                        <!--                        //CSS #postTable a -->
                         <tr>
                             <td><a href=<%="MainController?btAction=View_Post&txtViewPostId=" + p.getPost_id()%> ><%= p.getTitle()%></a></td>
                             <td><%= p.getContent()%></td>
@@ -144,7 +147,7 @@
                         %>
                         <tr>
                             <td><%= t.getTopic_id()%></td>
-                            <td><%= t.getTitle()%></td>
+                            <td><a href=<%="MainController?btAction=Search_Post&txtSearchPostTopicId=" + t.getTopic_id()%> ><%= t.getTitle()%></a></td>
                             <td><%= t.getContent()%></td>
                         </tr>
                         <%

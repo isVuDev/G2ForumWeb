@@ -98,10 +98,11 @@ CREATE TABLE commentTbl (
 );
 
 INSERT INTO commentTbl VALUES
-('7','2','free our people',null,'0'),
+('7','2','free our people',null,null),
 ('8','2','free our people',null,'1'),
 ('9','2','free our people',null,'1'),
 ('10','2','free our people',null,'2'),
 ('11','2','free our people',null,'2'),
 ('12','2','free our people',null,'2');
 
+SELECT * FROM commentTbl WHERE post_id = 2;

@@ -5,13 +5,11 @@
  */
 package g2.servlets;
 
-import g2.topicTbl.topicDAO;
-import g2.topicTbl.topicDTO;
+import g2.postTbl.postDAO;
+import g2.postTbl.postDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author APC
  */
-public class SearchTopicServlet extends HttpServlet {
+public class SearchPostServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,12 +39,10 @@ public class SearchTopicServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String url = null;
         try {
-            String searchValue = request.getParameter("txtSearchTopic");
-            topicDAO t_dao = new topicDAO();
-            List<topicDTO> list_topic = (List<topicDTO>) t_dao.getTopicByName(searchValue);
-            //forward searchValue
-            //request.setAttribute("txtSearchTopic", searchValue);
-            request.setAttribute("TOPICS", list_topic);
+            int view_topic_id = Integer.parseInt(request.getParameter("txtSearchPostTopicId"));
+            postDAO p_dao = new postDAO();
+            List<postDTO> list_post = (List<postDTO>) p_dao.getPostByTopic(view_topic_id);
+            request.setAttribute("POSTS", list_post);
             url = HOME_PAGE;
         } catch (ClassNotFoundException ex) {
             ex.printStackTrace();

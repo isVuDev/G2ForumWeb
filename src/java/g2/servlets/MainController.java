@@ -33,7 +33,7 @@ public class MainController extends HttpServlet {
     private final String SIGNUP_SERVLET = "SignupServlet";
     private final String LOGOUT_SERVLET = "LogoutServlet";
     private final String SEARCH_TOPIC_SERVLET = "SearchTopicServlet";
-    private final String SEARCH_POST_SERVLET = "SearchPostcServlet";
+    private final String SEARCH_POST_SERVLET = "SearchPostServlet";
     private final String VIEW_COMMENT_SERVLET = "ViewCommentServlet";
     private final String CREATE_POST_SERVLET = "CreatePostServlet";
     private final String CREATE_COMMENT_SERVLET = "CreateCommentServlet";

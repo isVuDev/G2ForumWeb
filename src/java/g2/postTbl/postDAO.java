@@ -93,7 +93,7 @@ public class postDAO {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-        List<postDTO> list_post = null;
+        List<postDTO> list_post = new ArrayList<>();
         try {
             con = DBUtils.getConnection();
             if (con != null) {
@@ -168,6 +168,7 @@ public class postDAO {
         return list_post;
     }
 
+    //get PostData by user_id
     public List<postDTO> getPostData(int userID) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
