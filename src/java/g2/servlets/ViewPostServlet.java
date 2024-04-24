@@ -23,11 +23,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
- * @author APC
+ * @author admin
  */
+@WebServlet(name = "ViewPostServlet", urlPatterns = {"/ViewPostServlet"})
 public class ViewPostServlet extends HttpServlet {
 
     /**
@@ -39,32 +39,50 @@ public class ViewPostServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private final String HOME_PAGE = "home.jsp";
-    private final String VIEW_POST_PAGE = "viewPost.jsp";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String url = HOME_PAGE;
-        postDTO view_post = null;
+        String url = "viewPost.jsp";
+        
+        int post_id = Integer.parseInt(request.getParameter("txtViewPostId"));
+        
         try {
-            int view_post_id = Integer.parseInt(request.getParameter("txtViewPostId"));
-            postDAO p_dao = new postDAO();
-            view_post = p_dao.getPostById(view_post_id);
-            if (view_post != null) {
-                request.setAttribute("VIEWPOST", view_post);
-                url = VIEW_POST_PAGE;
-            }
-
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            //calc votes
+         
+           //find post
+           postDAO dao = new postDAO();
+           //calc votes
+           voteDAO vDao = new voteDAO();
+           int voteSum =vDao.calculateVotesByPostID(post_id);
+           if (!dao.updateVoteSum(post_id, voteSum)) log("Updated vote log failed");
+           
+           postDTO dto = dao.getPostById(post_id);
+           if (dto != null){        
+               request.setAttribute("POST_INFO", dto);
+               
+               //find author
+               userDAO uDao = new userDAO();
+               userDTO uDto = uDao.getUserByID(dto.getUser_id());
+               
+               if (uDto!=null) {
+                   request.setAttribute("AUTHOR", uDto);
+                   commentDAO cdao = new commentDAO();
+                   List<commentDTO> cdto = cdao.getCommentByPost(post_id);
+                   
+                   if (cdto != null){
+                        request.setAttribute("POST_COMMENTS", cdto);
+                        log("fetch sucess");
+                   }
+               }
+           }
+                     
+        } catch (SQLException | ClassNotFoundException ex){
+            log(ex + " ____ daoexception");
+        } catch (Exception e) {
+            log("exception ___" + e);
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-            out.close();
+            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         }
     }
 
