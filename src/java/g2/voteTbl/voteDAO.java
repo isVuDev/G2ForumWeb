@@ -31,6 +31,7 @@ public class voteDAO {
                 stm = con.prepareStatement(query);
                 rs = stm.executeQuery();
                 if (rs.next()) {
+                    int vote_id = rs.getInt("vote_id");
                     int user_id = rs.getInt("user_id");
                     int post_id = rs.getInt("post_id");
                     int vote_type = rs.getInt("vote_type");
