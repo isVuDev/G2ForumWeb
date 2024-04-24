@@ -56,39 +56,36 @@
 
                 <h1>View Post</h1>
 
-                <%-- Retrieve Post Details --%>
-                <%--  <c:set var="postId" value="${param.postId}" />
-                  <c:set var="postTitle" value="Post Title" /> <!-- Replace with actual post title -->
-                  <c:set var="postContent" value="Post Content Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ut risus quis nisi commodo tristique." /> <!-- Replace with actual post content -->
-                  <c:set var="postAuthor" value="John Doe" /> <!-- Replace with actual post author -->
-                --%>
                 <c:set var="post" value="${requestScope.POST_INFO}"/>
                 <c:set var="comments" value="${requestScope.POST_COMMENTS}" /> <!-- Replace with actual comments -->
                 <c:set var="author" value="${requestScope.AUTHOR}"/>
                 <c:set var="voteError" value="${requestScope.VOTE_ERROR}"/>
 
                 <%-- Display Post --%>
-                <div id="post">
-                    <h2>${post.title}</h2>
-                    <p>${post.content}</p>
-                    <p>Author: ${author.username}</p>
+                    <div id="post">
+                        <h2>${post.title}</h2>
+                        <p>${post.content}</p>
+                        <p>Author: ${author.username}</p>
 
-                    <%-- Vote Buttons --%>
-                    <form action="MainController" method="post">
-                        <input type="hidden" name="txtViewPostId" value="${post.user_id}">
-                        <input type="submit" name="voteType" value="Upvote">
-                        <p style="margin-left: 20px;margin-right: 20px">${post.voteSum}</p>
-                        <input type="submit" name="voteType" value="Downvote">
-                    </form>
-                    <c:if test="${not empty voteError}">
-                        <c:url value="MainController" var="removeVoteUrl">
-                            <c:param name="btAction" value="Remove Vote" />
-                            <c:param name="txtViewPostID" value="${post.post_id}" />
-                            <c:param name="txtUserID" value="${session.ACC.user_id}" />
-                        </c:url>
+                        <%-- Vote Buttons --%>
+                        <form action="MainController" method="post">
+                            <input type="hidden" name="txtViewPostId" value="${post.post_id}">
+                            <input type="hidden" name="txtUserID" value="${sessionScope.ACC.user_id}">
+                            <input type="submit" name="btAction" value="Upvote">
+                            <p style="margin-left: 20px;margin-right: 20px">${post.voteSum}</p>
+                            <input type="submit" name="btAction" value="Downvote">
+                        </form>
 
-                        <a href="${removeVoteUrl}">${voteError.VoteHasBeenMadeError}</a>
-                    </c:if>
+
+                        <c:if test="${not empty voteError}">
+                            <c:url value="MainController" var="removeVoteUrl">
+                                <c:param name="btAction" value="Remove Vote" />
+                                <c:param name="txtViewPostID" value="${post.post_id}" />
+                                <c:param name="txtUserID" value="${sessionScope.ACC.user_id}" />
+                            </c:url>
+
+                            <a href="${removeVoteUrl}">${voteError.voteHasBeenMade}</a>
+                        </c:if>
 
 
 
