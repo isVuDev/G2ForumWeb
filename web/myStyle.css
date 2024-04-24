@@ -37,6 +37,13 @@ body {
     justify-content: center;
     font-size: 15px;
 }
+#body a {
+    /*text-decoration: none;*/
+    color: #fff;
+}
+#body a:hover {
+    color: #333;
+}
 
 /*left Body*/
 £centerBox {

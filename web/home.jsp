@@ -48,7 +48,7 @@
                         <form action="MainController" method="GET">
                             <input type="text" placeholder="user"
                                    name="txtSearchUser"/>
-                            <button type="submit" name="btAction" value="Search_User"><i class="fa fa-search"></i></button>
+                            <button type="submit" name="btAction" value="Search_Home_User"><i class="fa fa-search"></i></button>
                         </form>
                         <form action="MainController" method="GET">
                             <input type="text" placeholder="topic" 
@@ -218,7 +218,7 @@
                         %>
                         <tr>
                             <td><%= u.getUser_id()%></td>
-                            <td><a href=<%="MainController?btAction=Search_User&txtViewUserId=" + u.getUser_id()%> ><%= u.getUsername()%></a></td>
+                            <td><a href=<%="MainController?btAction=Search_Home_User&txtViewUserId=" + u.getUser_id()%> ><%= u.getUsername()%></a></td>
                             <td><%= u.isIsMod()%></td>
                             <td><%= u.isIsBanned()%></td>
                         </tr>

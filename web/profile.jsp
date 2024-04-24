@@ -69,6 +69,8 @@
                     ${posts.size()}
                 </div>
                 <div><a href="updateProfile.jsp">Update Profile</a></div>
+                <div><a href="home.jsp">Back to Home</a></div>
+                
             </div>
         </div>
     </div>

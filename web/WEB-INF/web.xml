@@ -74,6 +74,10 @@
         <servlet-name>SearchPostServlet</servlet-name>
         <servlet-class>g2.servlets.SearchPostServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchHomeUserServlet</servlet-name>
+        <servlet-class>g2.servlets.SearchHomeUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CookieServlet</servlet-name>
         <url-pattern>/CookieServlet</url-pattern>
@@ -137,6 +141,10 @@
     <servlet-mapping>
         <servlet-name>SearchPostServlet</servlet-name>
         <url-pattern>/SearchPostServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchHomeUserServlet</servlet-name>
+        <url-pattern>/SearchHomeUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

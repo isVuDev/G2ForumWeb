@@ -53,6 +53,7 @@
                             <img src="data:image/jpg;base64,${base64Avatar}" width="100" height="100"/><br/>
                             <input type="file" id="image" name="imgAvatar" accept="image/*"/>
                             <input type="hidden" name="oldAvatar" value="${base64Avatar}"/>
+                            <div><a href="profile.jsp">Back to Profile</a></div>
                         </td>
                     </tr>
                 </tbody>

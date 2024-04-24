@@ -122,11 +122,12 @@ public class userDAO {
         try {
             con = DBUtils.getConnection();
             if (con != null) {
-                String query = "insert into userTbl(username,email,password) values(?,?,?)";
+                String query = "insert into userTbl(username,email,password,isMod) values(?,?,?,?)";
                 stm = con.prepareStatement(query);
                 stm.setString(1, username);
                 stm.setString(2, email);
                 stm.setString(3, password);
+                stm.setBoolean(4, false);
                 int affectedRows = stm.executeUpdate();
                 return affectedRows == 1;
             }

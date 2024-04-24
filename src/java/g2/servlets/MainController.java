@@ -44,6 +44,7 @@ public class MainController extends HttpServlet {
     private final String BAN_USER_SERVLET = "BanUserServlet";
     private final String SUBMIT_VOTE_SERVLET = "SubmitVoteServlet";
     private final String REMOVE_VOTE_SERVLET = "RemoveVoteServlet";
+    private final String SEARCH_HOME_USER_SERVLET = "SearchHomeUserServlet";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -84,8 +85,10 @@ public class MainController extends HttpServlet {
                 url = SUBMIT_VOTE_SERVLET;
             } else if (action.equals("Remove Vote")) {
                 url = REMOVE_VOTE_SERVLET;
-            } 
-            
+            } else if (action.equals("Search_Home_User")) {
+                url = SEARCH_HOME_USER_SERVLET;
+            }
+
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
             out.close();
