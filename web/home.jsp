@@ -40,7 +40,11 @@
                     <li><a href="login.jsp">Login</a>
                     </li>
                 </ul>
+
                 <ul>
+                    <div id="createPost">
+                        <li><a href="MainController?btAction=Create_Post">Create Post</a></li>
+                    </div>
                     <div class="search-container">
                         <form action="MainController" method="GET">
                             <input type="text" placeholder="user"
@@ -196,7 +200,7 @@
                     //<c:if test="${not empty listLec}">
                     //<c:forEach items="${requestScope.listLec}" var="lec">
                     //${lec.course.courseName}
-                    if (request.getAttribute("ACCS")!= null) {
+                    if (request.getAttribute("ACCS") != null) {
                         List<userDTO> list_user = (List<userDTO>) request.getAttribute("ACCS");
                         if (list_user != null && list_user.size() > 0) {
                 %>
@@ -227,8 +231,7 @@
                 </table>
                 <%
                     }
-                }
-                else {
+                } else {
                     userDAO u_dao = new userDAO();
                     List<userDTO> list_user = (List<userDTO>) u_dao.getUsers("");
                     if (list_user != null && list_user.size() > 0) {
