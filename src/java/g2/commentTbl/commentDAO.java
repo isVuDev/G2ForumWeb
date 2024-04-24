@@ -47,7 +47,7 @@ public class commentDAO {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-        List<commentDTO> list_comment = null;
+        List<commentDTO> list_comment = new ArrayList<>();
         try {
             con = DBUtils.getConnection();
             if (con != null) {
