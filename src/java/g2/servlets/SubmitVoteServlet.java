@@ -52,7 +52,7 @@ public class SubmitVoteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         int postId = Integer.parseInt(request.getParameter("txtViewPostId"));
-        int userId = Integer.parseInt(request.getParameter("txtUserID"));
+        int userId = Integer.parseInt(request.getParameter("txtUserId"));
         String vote = request.getParameter("btAction");
         int voteType = 0;
         
