@@ -39,8 +39,9 @@ body {
 }
 
 /*left Body*/
-£centerBox {
+#centerBox {
     display: inline-block;
+    width:80%;
 }
 #postTable {
     flex: auto;
