@@ -39,8 +39,8 @@ public class RemoveVoteServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
          // Retrieve post ID and user ID from request parameters
-        int postId = Integer.parseInt(request.getParameter("txtViewPostID"));
-        int userId = Integer.parseInt(request.getParameter("txtUserID"));
+        int postId = Integer.parseInt(request.getParameter("txtViewPostId"));
+        int userId = Integer.parseInt(request.getParameter("txtUserId"));
         String url = ERROR_PAGE;
 
 
