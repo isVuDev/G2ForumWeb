@@ -2,5 +2,24 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/createPost.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/servlets/ViewProfile.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/home.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/myStyle.css</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/postTbl/postDAO.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/viewPost.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/updateProfile.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/servlets/UpdateUserServlet.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/servlets/CreatePostServlet.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/userManage.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/userTbl/userDAO.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/web/user.jsp</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/servlets/SignupServlet.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/voteTbl/voteDAO.java</file>
+            <file>file:/C:/Users/APC/Desktop/G2ForumWeb/src/java/g2/servlets/MainController.java</file>
+        </group>
     </open-files>
 </project-private>
