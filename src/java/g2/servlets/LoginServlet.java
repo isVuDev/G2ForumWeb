@@ -56,6 +56,11 @@ public class LoginServlet extends HttpServlet {
                         url = MOD_PAGE;
                     } else {
                         url = USER_PAGE;
+                         //check for request para to redirect
+                        String post_id = request.getParameter("txtRedirect");//this para is sent from the submitvoteservlet
+                        if(post_id!=null){
+                            url = "MainController?btAction=View_Post&txtViewPostId="+post_id;
+                        }
                     }
 
                 } else {
