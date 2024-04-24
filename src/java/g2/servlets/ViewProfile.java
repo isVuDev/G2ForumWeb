@@ -28,7 +28,7 @@ import javax.servlet.http.Part;
  *
  * @author Nam
  */
-public class UpdateUserServlet extends HttpServlet {
+public class ViewProfile extends HttpServlet {
 
     private String UPDATE_PROFILE_PAGE = "updateProfile.jsp";
     private String LOGIN_PAGE = "login.jsp";
