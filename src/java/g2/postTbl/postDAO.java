@@ -208,4 +208,34 @@ public class postDAO {
         }
         return list_post;
     }
+
+    public boolean updateVoteSum(int postId, int voteSum) throws SQLException, ClassNotFoundException{
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "UPDATE postTbl "
+                + "SET voteSum = ? "
+                + "WHERE post_id = ? ";
+        try {
+            con = DBUtils.getConnection();
+            if (con!=null){
+                stm = con.prepareStatement(sql);                
+                stm.setInt(1, voteSum);
+                stm.setInt(2, postId);
+                int rowsAffected = stm.executeUpdate();
+                return rowsAffected > 0; // Return true if at least one row was updated
+            }            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
+    }
 }
